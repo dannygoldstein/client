@@ -529,6 +529,9 @@ class BackendSender(object):
         if local:
             record.control.local = local
         if self.record_q:
+            if record.WhichOneof('record_type') == 'metric':
+                import traceback
+                logger.info(f'putting metric record.\n traceback: {"".join(traceback.format_list(traceback.extract_stack()))}')
             self.record_q.put(record)
 
     def _communicate(
