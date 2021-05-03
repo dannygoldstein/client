@@ -11,6 +11,7 @@ import json
 import logging
 import os
 import time
+import traceback
 
 from pkg_resources import parse_version
 import requests
@@ -171,6 +172,11 @@ class SendManager(object):
         # Don't log output to reduce log noise
         if record_type not in {"output", "request"}:
             logger.debug("send: {}".format(record_type))
+            if record_type == 'metric':
+                stack = traceback.extract_stack()
+                logger.debug("metric was: {}".format(record))
+                #logger.debug("send metric encountered in: {}".format('\n'.join(traceback.format_list(stack))))
+
         assert send_handler, "unknown send handler: {}".format(handler_str)
         send_handler(record)
 

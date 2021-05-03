@@ -123,6 +123,11 @@ class HandleManager(object):
         handler(record)
 
     def _dispatch_record(self, record: Record, always_send: bool = False) -> None:
+        record_type = record.WhichOneof("record_type")
+        if record_type == 'metric':
+            import traceback
+            logger.debug(f'putting metric record.\n traceback: {"".join(traceback.format_list(traceback.extract_stack()))}')
+
         if not self._settings._offline or always_send:
             self._sender_q.put(record)
         if not record.control.local:
