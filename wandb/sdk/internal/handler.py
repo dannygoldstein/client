@@ -361,6 +361,8 @@ class HandleManager(object):
     def _history_update_leaf(
         self, kl: List[str], v: Any, history_dict: Dict, update_history: Dict[str, Any]
     ) -> None:
+        logger.debug(
+            f'_history_update_leaf called with kl={kl}\nv={v}\nhistory_dict={history_dict}\nupdate_history={update_history}')
         hkey = ".".join([k.replace(".", "\\.") for k in kl])
         m = self._metric_defines.get(hkey)
         if not m:
@@ -382,6 +384,8 @@ class HandleManager(object):
     def _history_update_list(
         self, kl: List[str], v: Any, history_dict: Dict, update_history: Dict[str, Any]
     ) -> None:
+        logger.debug(
+            f'_history_update_list called with kl={kl}\nv={v}\nhistory_dict={history_dict}\nupdate_history={update_history}')
         if isinstance(v, dict):
             for nk, nv in six.iteritems(v):
                 self._history_update_list(
