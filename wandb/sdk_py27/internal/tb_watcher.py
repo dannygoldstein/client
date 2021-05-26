@@ -358,15 +358,18 @@ class TBEventConsumer(object):
     def finish(self):
         self._delay = 0
         self._shutdown.set()
-        try:
-            event = self._queue.get(True, 1)
-        except queue.Empty:
-            event = None
-        if event:
-            self._handle_event(event, history=self.tb_history)
-            items = self.tb_history._get_and_reset()
-            for item in items:
-                self._save_row(item,)
+
+        while True:
+            try:
+                event = self._queue.get(True, 1)
+            except queue.Empty:
+                break
+            else:
+                self._handle_event(event, history=self.tb_history)
+                items = self.tb_history._get_and_reset()
+                for item in items:
+                    self._save_row(item,)
+
         self._thread.join()
 
     def _thread_body(self):
