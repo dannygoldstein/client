@@ -98,8 +98,6 @@ class SystemStats(object):
         self._tpu_profiler = None
 
         if tpu.is_tpu_available():
-            import pdb
-            pdb.set_trace()
             try:
                 self._tpu_profiler = tpu.get_profiler()
             except Exception as e:
@@ -113,8 +111,6 @@ class SystemStats(object):
         if not self._thread.is_alive():
             self._thread.start()
         if self._tpu_profiler:
-            import pdb
-            pdb.set_trace()
             self._tpu_profiler.start()
 
     @property
