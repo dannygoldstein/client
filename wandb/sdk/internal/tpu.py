@@ -58,6 +58,8 @@ class TPUProfiler(object):
 
     def _get_tpu_utilization(self):
         # this call blocks for duration_ms milliseconds
+        import pdb
+        pdb.set_trace()
         res = self._profiler_client.monitor(
             self.service_addr, duration_ms=self.duration_ms, level=2
         )
