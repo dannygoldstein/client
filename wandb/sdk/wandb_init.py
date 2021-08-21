@@ -21,6 +21,7 @@ from wandb.integration import sagemaker
 from wandb.integration.magic import magic_install
 from wandb.lib import filesystem, module, reporting
 from wandb.util import sentry_exc
+from copy import deepcopy
 
 from . import wandb_login
 from . import wandb_setup
@@ -468,7 +469,7 @@ def init(
 
     """
     assert not wandb._IS_INTERNAL_PROCESS
-    kwargs = locals()
+    kwargs = deepcopy(locals())
     if 'kwargs' in kwargs:
         del kwargs['kwargs']
     error_seen = None
