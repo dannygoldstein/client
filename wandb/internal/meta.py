@@ -185,6 +185,7 @@ class Meta(object):
                     if self._settings.notebook_name:
                         self.data["program"] = self._settings.notebook_name
                     else:
+                        logging.debug(f"self._settings._jupyter_path: {self._settings._jupyter_path}")
                         if self._settings._jupyter_path:
                             if "fileId=" in self._settings._jupyter_path:
                                 tb = '\n'.join(traceback.format_list(traceback.extract_stack()))
