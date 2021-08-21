@@ -187,8 +187,9 @@ class Meta(object):
                     else:
                         if self._settings._jupyter_path:
                             if "fileId=" in self._settings._jupyter_path:
-                                traceback.print_stack()
-                                print('in here')
+                                tb = '\n'.join(traceback.format_list(traceback.extract_stack()))
+                                with open('traceback.dat', 'w') as f:
+                                    f.write(tb)
                                 self.data["colab"] = (
                                     "https://colab.research.google.com/drive/"
                                     + self._settings._jupyter_path.split(  # noqa
