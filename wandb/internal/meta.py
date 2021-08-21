@@ -10,6 +10,7 @@ import multiprocessing
 import os
 from shutil import copyfile
 import sys
+import traceback
 
 from wandb import util
 from wandb.lib.filenames import DIFF_FNAME, METADATA_FNAME, REQUIREMENTS_FNAME
@@ -186,6 +187,7 @@ class Meta(object):
                     else:
                         if self._settings._jupyter_path:
                             if "fileId=" in self._settings._jupyter_path:
+                                traceback.print_stack()
                                 self.data["colab"] = (
                                     "https://colab.research.google.com/drive/"
                                     + self._settings._jupyter_path.split(  # noqa
