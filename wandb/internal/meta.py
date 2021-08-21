@@ -174,6 +174,9 @@ class Meta(object):
 
     def probe(self):
         self._setup_sys()
+        with open('in_probe.dat', 'w') as f:
+            f.write(tb)
+        
         if not self._settings.disable_code:
             if self._settings.program_relpath is not None:
                 self.data["codePath"] = self._settings.program_relpath
